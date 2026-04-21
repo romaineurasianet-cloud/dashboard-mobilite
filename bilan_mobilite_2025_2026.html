@@ -1,0 +1,364 @@
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-sans); }
+.dashboard { padding: 1.5rem 0; }
+.section-title { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-secondary); margin-bottom: 12px; }
+.metric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 1.5rem; }
+.metric-card { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 14px 16px; }
+.metric-label { font-size: 12px; color: var(--color-text-secondary); margin-bottom: 6px; }
+.metric-value { font-size: 22px; font-weight: 500; color: var(--color-text-primary); }
+.metric-delta { font-size: 12px; margin-top: 4px; }
+.delta-up { color: #1D9E75; }
+.delta-down { color: #D85A30; }
+.card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1.25rem; margin-bottom: 1rem; }
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+.chart-wrap { position: relative; width: 100%; }
+.tab-bar { display: flex; gap: 4px; margin-bottom: 1rem; }
+.tab { padding: 6px 14px; font-size: 13px; border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-secondary); background: transparent; cursor: pointer; color: var(--color-text-secondary); }
+.tab.active { background: var(--color-background-secondary); color: var(--color-text-primary); font-weight: 500; }
+.table-wrap { overflow-x: auto; }
+table { width: 100%; font-size: 13px; border-collapse: collapse; }
+th { text-align: left; font-size: 11px; font-weight: 500; color: var(--color-text-secondary); padding: 6px 10px; border-bottom: 0.5px solid var(--color-border-tertiary); }
+td { padding: 7px 10px; border-bottom: 0.5px solid var(--color-border-tertiary); color: var(--color-text-primary); }
+tr:last-child td { border-bottom: none; }
+.badge { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 100px; font-weight: 500; }
+.badge-teal { background: #E1F5EE; color: #0F6E56; }
+.badge-amber { background: #FAEEDA; color: #854F0B; }
+.badge-blue { background: #E6F1FB; color: #185FA5; }
+.badge-coral { background: #FAECE7; color: #993C1D; }
+.note-box { background: var(--color-background-secondary); border-left: 3px solid #378ADD; border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0; padding: 12px 14px; font-size: 13px; color: var(--color-text-secondary); line-height: 1.6; margin-bottom: 1rem; }
+.fin-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 0.5px solid var(--color-border-tertiary); font-size: 14px; }
+.fin-row:last-child { border-bottom: none; }
+.fin-total { font-weight: 500; font-size: 15px; color: var(--color-text-primary); }
+.progress-bar { height: 6px; background: var(--color-background-secondary); border-radius: 3px; overflow: hidden; margin-top: 6px; }
+.progress-fill { height: 100%; border-radius: 3px; }
+h2.section { font-size: 16px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 4px; }
+p.sub { font-size: 13px; color: var(--color-text-secondary); margin-bottom: 1rem; }
+.divider { border: none; border-top: 0.5px solid var(--color-border-tertiary); margin: 1.5rem 0; }
+</style>
+
+<div class="dashboard">
+
+<h2 class="section" style="margin-bottom:2px;">Bilan de mobilité 2025-2026</h2>
+<p class="sub">Alpes-Maritimes & Var — Groupes, individuel, mixité · Projection N+1 incluse</p>
+
+<div class="tab-bar">
+  <button class="tab active" onclick="showTab('vue')">Vue d'ensemble</button>
+  <button class="tab" onclick="showTab('ufa')">Par UFA</button>
+  <button class="tab" onclick="showTab('proj')">Projection N+1</button>
+  <button class="tab" onclick="showTab('fin')">Financier & RH</button>
+</div>
+
+<div id="tab-vue">
+  <div class="metric-grid">
+    <div class="metric-card">
+      <div class="metric-label">Participants groupe</div>
+      <div class="metric-value">239</div>
+      <div class="metric-delta delta-up">+71% → 409 prévu N+1</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Total mob. toutes formes</div>
+      <div class="metric-value">375</div>
+      <div class="metric-delta delta-up">+45% → 545 en N+1</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Nombre de groupes</div>
+      <div class="metric-value">27</div>
+      <div class="metric-delta delta-up">→ 36 groupes N+1</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">UFA partenaires actives</div>
+      <div class="metric-value">15</div>
+      <div class="metric-delta delta-up">→ 20 en N+1</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">CA analytique total</div>
+      <div class="metric-value">350 K€</div>
+      <div class="metric-delta" style="color:var(--color-text-secondary);">FSMOB + CRIENSUP + EFP</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Bénéfice estimé</div>
+      <div class="metric-value">200 K€</div>
+      <div class="metric-delta delta-up">Après charges RH 150K€</div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="card">
+      <div class="section-title">Répartition géographique N (groupes)</div>
+      <div class="chart-wrap" style="height:220px;"><canvas id="chartGeo" role="img" aria-label="Répartition groupes par zone">Alpes-Maritimes 11, Var 8, Mixité 6, Commun 2</canvas></div>
+    </div>
+    <div class="card">
+      <div class="section-title">Calendrier des départs (mois)</div>
+      <div class="chart-wrap" style="height:220px;"><canvas id="chartMois" role="img" aria-label="Départs par mois">Février 3, Mars 2, Avril 4, Mai 2, Juin 3, Juillet 2, Octobre 4, Novembre 2, Janvier 1, Décembre 1</canvas></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="section-title">Mob. individuelle accompagnée (N)</div>
+    <div class="metric-grid" style="margin-bottom:0;">
+      <div><div class="metric-label">Var — apprentis</div><div style="font-size:20px;font-weight:500;">25</div></div>
+      <div><div class="metric-label">AM — apprentis</div><div style="font-size:20px;font-weight:500;">21</div></div>
+      <div><div class="metric-label">Mixité</div><div style="font-size:20px;font-weight:500;">15</div></div>
+      <div><div class="metric-label">MIA entrante (AM+Var)</div><div style="font-size:20px;font-weight:500;">46 + 29</div></div>
+      <div><div class="metric-label">Job shadowing</div><div style="font-size:20px;font-weight:500;">9</div></div>
+      <div><div class="metric-label">Délégué AM</div><div style="font-size:20px;font-weight:500;">18</div></div>
+    </div>
+  </div>
+</div>
+
+<div id="tab-ufa" style="display:none;">
+  <div class="card">
+    <div class="section-title">Alpes-Maritimes — Groupes N 2025-2026</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>UFA</th><th>Groupes</th><th>Participants</th><th>Période</th><th>Statut</th></tr></thead>
+        <tbody>
+          <tr><td>Pierre et Marie Curie</td><td>1</td><td>10</td><td>Octobre</td><td><span class="badge badge-teal">Confirmé</span></td></tr>
+          <tr><td>Jeanne et Paul Augier</td><td>6</td><td>62</td><td>Fév. / Avril</td><td><span class="badge badge-teal">Confirmé</span></td></tr>
+          <tr><td>Bristol</td><td>2</td><td>16</td><td>Juin / Juillet</td><td><span class="badge badge-teal">Confirmé</span></td></tr>
+          <tr><td>Palmier</td><td>1</td><td>12</td><td>Février</td><td><span class="badge badge-teal">Confirmé</span></td></tr>
+          <tr><td>Parc Impérial</td><td>1</td><td>6</td><td>Octobre</td><td><span class="badge badge-teal">Confirmé</span></td></tr>
+          <tr style="font-weight:500;"><td>TOTAL AM</td><td>11</td><td>106</td><td>—</td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:0;">
+    <div class="section-title">Var — Groupes N 2025-2026</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>UFA</th><th>Groupes</th><th>Participants</th><th>Période</th><th>Statut</th></tr></thead>
+        <tbody>
+          <tr><td>Coudon</td><td>1</td><td>10</td><td>Octobre</td><td><span class="badge badge-teal">Confirmé</span></td></tr>
+          <tr><td>GALLIENI</td><td>1</td><td>8</td><td>Avril</td><td><span class="badge badge-teal">Confirmé</span></td></tr>
+          <tr><td>Coudoulière</td><td>2</td><td>19</td><td>Nov. / Fév.</td><td><span class="badge badge-teal">Confirmé</span></td></tr>
+          <tr><td>Raynouard</td><td>1</td><td>14</td><td>Janvier</td><td><span class="badge badge-teal">Confirmé</span></td></tr>
+          <tr><td>Golf Hotel</td><td>1</td><td>5</td><td>Mai</td><td><span class="badge badge-teal">Confirmé</span></td></tr>
+          <tr><td>Langevin</td><td>1</td><td>5</td><td>Mars</td><td><span class="badge badge-teal">Confirmé</span></td></tr>
+          <tr><td>Costebelle</td><td>1</td><td>9</td><td>Avril</td><td><span class="badge badge-teal">Confirmé</span></td></tr>
+          <tr style="font-weight:500;"><td>TOTAL Var</td><td>8</td><td>70</td><td>—</td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:0;">
+    <div class="section-title">Mixité AM/Var + Commun 06/83</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>UFA</th><th>Groupes</th><th>Participants</th><th>Période</th><th>Type</th></tr></thead>
+        <tbody>
+          <tr><td>Palmier</td><td>2</td><td>5</td><td>Février</td><td><span class="badge badge-blue">Mixité</span></td></tr>
+          <tr><td>Vauban</td><td>1</td><td>2</td><td>Juin</td><td><span class="badge badge-blue">Mixité</span></td></tr>
+          <tr><td>Anne Sophie Pic</td><td>1</td><td>5</td><td>Mars</td><td><span class="badge badge-blue">Mixité</span></td></tr>
+          <tr><td>Coudoulière</td><td>1</td><td>3</td><td>Juillet</td><td><span class="badge badge-blue">Mixité</span></td></tr>
+          <tr><td>Greta</td><td>1</td><td>10</td><td>Octobre</td><td><span class="badge badge-blue">Mixité</span></td></tr>
+          <tr><td>Toutes UFA</td><td>1</td><td>30</td><td>Décembre</td><td><span class="badge badge-amber">Commun</span></td></tr>
+          <tr><td>Toutes UFA</td><td>1</td><td>8</td><td>Juillet</td><td><span class="badge badge-amber">Commun</span></td></tr>
+          <tr style="font-weight:500;"><td>TOTAL</td><td>8</td><td>63</td><td>—</td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div id="tab-proj" style="display:none;">
+  <div class="note-box">
+    La projection N+1 repose uniquement sur les groupes déjà programmés — sans augmentation des mobilités individuelles. Hypothèse : 578 mobilités totales dont 90 individuelles et 488 en groupe (36 groupes).
+  </div>
+
+  <div class="metric-grid">
+    <div class="metric-card">
+      <div class="metric-label">Participants groupe N+1</div>
+      <div class="metric-value">409</div>
+      <div class="metric-delta delta-up">+71% vs N (239)</div>
+      <div class="progress-bar"><div class="progress-fill" style="width:71%;background:#1D9E75;"></div></div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Total mobilités N+1</div>
+      <div class="metric-value">545</div>
+      <div class="metric-delta delta-up">+45% vs N (375)</div>
+      <div class="progress-bar"><div class="progress-fill" style="width:45%;background:#1D9E75;"></div></div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Mob. individuelles N+1</div>
+      <div class="metric-value">90</div>
+      <div class="metric-delta" style="color:var(--color-text-secondary);">924h accompagnement</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Groupes N+1</div>
+      <div class="metric-value">36</div>
+      <div class="metric-delta" style="color:var(--color-text-secondary);">1 620h suivi + prépa</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="section-title">Comparaison N vs N+1 — participants par zone</div>
+    <div class="chart-wrap" style="height:260px;"><canvas id="chartComp" role="img" aria-label="Comparaison N vs N+1">AM N:106, AM N+1:210, Var N:70, Var N+1:114, Mixité N:25, Mixité N+1:85</canvas></div>
+  </div>
+
+  <div class="card">
+    <div class="section-title">Nouvelles UFA intégrées en N+1</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>UFA</th><th>Groupes</th><th>Participants</th><th>Période</th><th>Zone</th></tr></thead>
+        <tbody>
+          <tr><td>Estienne d'Orves</td><td>2</td><td>50</td><td>—</td><td><span class="badge badge-blue">AM</span></td></tr>
+          <tr><td>Leonard de Vinci</td><td>1</td><td>15</td><td>—</td><td><span class="badge badge-blue">AM</span></td></tr>
+          <tr><td>Decroisset</td><td>1</td><td>15</td><td>—</td><td><span class="badge badge-blue">AM</span></td></tr>
+          <tr><td>Golf Hotel (x3)</td><td>3</td><td>30</td><td>Mai</td><td><span class="badge badge-coral">Var</span></td></tr>
+          <tr><td>Langevin (x2)</td><td>2</td><td>16</td><td>Mars</td><td><span class="badge badge-coral">Var</span></td></tr>
+          <tr><td>Bonaparte</td><td>1</td><td>8</td><td>Juin</td><td><span class="badge badge-coral">Var</span></td></tr>
+          <tr><td>Greta (↑)</td><td>1</td><td>70</td><td>—</td><td><span class="badge badge-amber">Mixité</span></td></tr>
+          <tr><td>Parc Impérial (x2)</td><td>2</td><td>30</td><td>Octobre</td><td><span class="badge badge-blue">AM</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="section-title">Charge RH estimée N+1 — ETP nécessaires</div>
+    <div style="font-size:13px;color:var(--color-text-secondary);margin-bottom:12px;">Sur base théorique OPCO : 1 ETP Cat. A = ~500 référents mobilité. Total estimé avec dev.</div>
+    <table>
+      <thead><tr><th>Activité</th><th>Heures estimées</th><th>ETP équivalent</th></tr></thead>
+      <tbody>
+        <tr><td>Accompagnement individuel (90 mob.)</td><td>924h</td><td>~0.5 ETP</td></tr>
+        <tr><td>Suivi & préparation groupes (36 groupes)</td><td>1 620h</td><td>~0.9 ETP</td></tr>
+        <tr><td>Développement (UFA + autres services)</td><td>669h</td><td>~0.4 ETP</td></tr>
+        <tr style="font-weight:500;"><td>TOTAL</td><td>3 213h</td><td>~1.8 ETP</td></tr>
+      </tbody>
+    </table>
+    <div class="note-box" style="margin-top:12px;margin-bottom:0;">
+      Actuellement 3 ETP à 50 000€ brut/an = 150 000€. La charge N+1 réclame environ 1,8 ETP minimum hors développement stratégique.
+    </div>
+  </div>
+</div>
+
+<div id="tab-fin" style="display:none;">
+  <div class="two-col">
+    <div class="card">
+      <div class="section-title">Chiffre d'affaires analytique N</div>
+      <div class="fin-row"><span style="color:var(--color-text-secondary);">FSMOB</span><span style="font-weight:500;">272 500 €</span></div>
+      <div class="fin-row"><span style="color:var(--color-text-secondary);">1CRIENSUP</span><span style="font-weight:500;">51 000 €</span></div>
+      <div class="fin-row"><span style="color:var(--color-text-secondary);">EFP</span><span style="font-weight:500;">26 950 €</span></div>
+      <div class="fin-row fin-total"><span>TOTAL CA</span><span style="color:#185FA5;">350 450 €</span></div>
+    </div>
+    <div class="card">
+      <div class="section-title">Résultat & charges RH</div>
+      <div class="fin-row"><span style="color:var(--color-text-secondary);">CA total</span><span>350 450 €</span></div>
+      <div class="fin-row"><span style="color:var(--color-text-secondary);">Charges RH (3 ETP)</span><span style="color:#D85A30;">- 150 000 €</span></div>
+      <div class="fin-row fin-total"><span>Bénéfice estimé</span><span style="color:#1D9E75;">200 450 €</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="section-title">Taux EFP applicables — barème de référence</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Type de mobilité</th><th>Taux / participant</th><th>Au-delà 100 p.</th></tr></thead>
+        <tbody>
+          <tr><td>Mobilité de groupe (apprenants EFP)</td><td>100 €</td><td>N/A</td></tr>
+          <tr><td>Mobilité personnel (cours & formations)</td><td>100 €</td><td>N/A</td></tr>
+          <tr><td>Expert invité</td><td>100 €</td><td>N/A</td></tr>
+          <tr><td>Enseignant / éducateur accueilli</td><td>100 €</td><td>N/A</td></tr>
+          <tr><td>Concours de métier</td><td>100 €</td><td>N/A</td></tr>
+          <tr><td>Mob. courte durée (apprenants EFP)</td><td>350 €</td><td>200 €</td></tr>
+          <tr><td>Mob. personnel (observation / mission)</td><td>350 €</td><td>200 €</td></tr>
+          <tr><td>ErasmusPro (longue durée)</td><td>500 €</td><td>N/A</td></tr>
+          <tr><td>Activité pays tiers non associés</td><td>500 €</td><td>N/A</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="section-title">Ressources humaines — situation actuelle</div>
+    <div class="fin-row"><span style="color:var(--color-text-secondary);">ETP en poste</span><span style="font-weight:500;">3</span></div>
+    <div class="fin-row"><span style="color:var(--color-text-secondary);">Coût brut / ETP</span><span>50 000 € / an</span></div>
+    <div class="fin-row fin-total"><span>Masse salariale totale</span><span style="color:#D85A30;">150 000 €</span></div>
+  </div>
+
+  <div class="chart-wrap" style="height:220px; margin-top:1rem;"><canvas id="chartFin" role="img" aria-label="Répartition du CA par source">FSMOB 272500, CRIENSUP 51000, EFP 26950</canvas></div>
+</div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+function showTab(name) {
+  ['vue','ufa','proj','fin'].forEach(t => {
+    document.getElementById('tab-'+t).style.display = t===name ? 'block' : 'none';
+  });
+  document.querySelectorAll('.tab').forEach((b,i) => {
+    b.classList.toggle('active', ['vue','ufa','proj','fin'][i]===name);
+  });
+  if (name==='vue' && !window._geoDrawn) { drawGeo(); drawMois(); window._geoDrawn=true; }
+  if (name==='proj' && !window._compDrawn) { drawComp(); window._compDrawn=true; }
+  if (name==='fin' && !window._finDrawn) { drawFin(); window._finDrawn=true; }
+}
+
+const TEAL='#1D9E75', BLUE='#378ADD', AMBER='#BA7517', CORAL='#D85A30', GRAY='#888780', PURPLE='#7F77DD';
+
+function drawGeo() {
+  new Chart(document.getElementById('chartGeo'), {
+    type: 'doughnut',
+    data: {
+      labels: ['Alpes-Maritimes','Var','Mixité AM/Var','Commun 06/83'],
+      datasets: [{ data: [106,70,25,38], backgroundColor:[BLUE,CORAL,TEAL,AMBER], borderWidth:0 }]
+    },
+    options: { responsive:true, maintainAspectRatio:false, plugins:{ legend:{ position:'right', labels:{ font:{size:12}, boxWidth:12 } } } }
+  });
+}
+
+function drawMois() {
+  const labels = ['Oct','Nov','Janv','Fév','Mars','Avr','Mai','Juin','Juil','Déc'];
+  const data =   [4,    2,    1,    3,    2,    4,    2,    3,    2,    1   ];
+  new Chart(document.getElementById('chartMois'), {
+    type: 'bar',
+    data: { labels, datasets:[{ label:'Groupes partants', data, backgroundColor:BLUE, borderRadius:4 }] },
+    options: {
+      responsive:true, maintainAspectRatio:false,
+      plugins:{ legend:{ display:false } },
+      scales:{ y:{ beginAtZero:true, ticks:{ stepSize:1 }, grid:{ color:'rgba(128,128,128,0.1)' } }, x:{ grid:{ display:false }, ticks:{ autoSkip:false } } }
+    }
+  });
+}
+
+function drawComp() {
+  new Chart(document.getElementById('chartComp'), {
+    type: 'bar',
+    data: {
+      labels: ['AM','Var','Mixité','Commun','TOTAL groupe'],
+      datasets: [
+        { label:'N (2025-2026)', data:[106,70,25,38,239], backgroundColor:BLUE, borderRadius:3 },
+        { label:'N+1 (2026-2027)', data:[210,114,85,0,409], backgroundColor:TEAL, borderRadius:3 }
+      ]
+    },
+    options: {
+      responsive:true, maintainAspectRatio:false,
+      plugins:{ legend:{ labels:{ font:{size:12}, boxWidth:12 } } },
+      scales:{ y:{ beginAtZero:true, grid:{ color:'rgba(128,128,128,0.1)' } }, x:{ grid:{ display:false } } }
+    }
+  });
+}
+
+function drawFin() {
+  new Chart(document.getElementById('chartFin'), {
+    type: 'bar',
+    data: {
+      labels: ['FSMOB','1CRIENSUP','EFP'],
+      datasets: [{ label:'CA (€)', data:[272500,51000,26950], backgroundColor:[BLUE,TEAL,AMBER], borderRadius:4 }]
+    },
+    options: {
+      responsive:true, maintainAspectRatio:false, indexAxis:'y',
+      plugins:{ legend:{ display:false } },
+      scales:{ x:{ beginAtZero:true, ticks:{ callback: v => v.toLocaleString('fr-FR')+'€' }, grid:{ color:'rgba(128,128,128,0.1)' } }, y:{ grid:{ display:false } } }
+    }
+  });
+}
+
+drawGeo(); drawMois(); window._geoDrawn=true;
+</script>
